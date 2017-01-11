@@ -36,11 +36,15 @@ object S3Resource {
 
   def apply(bucket: String, key: String) = new S3Resource(bucket, key)
 
-  private val s3UrlRegex = """^http[s]?://(.+)\.s3.amazonaws.com/(.+)$""".r
+  private val s3UrlRegex1 = """^http[s]?://(.+)\.s3.amazonaws.com/(.+)$""".r
+  private val s3UrlRegex2 = """^http[s]?://s3.(.+)\.amazonaws.com/([^/]+)/(.+)$""".r
+  private val s3UrlRegex3 = """^http[s]?://s3.amazonaws.com/([^/]+)/(.+)$""".r
 
   def fromUrl(url: String): Option[S3Resource] =
     url match {
-      case s3UrlRegex(bucketName, targetKey) => Some(S3Resource(S3Bucket(bucketName), S3Key(targetKey)))
+      case s3UrlRegex1(bucketName, targetKey) => Some(S3Resource(S3Bucket(bucketName), S3Key(targetKey)))
+      case s3UrlRegex2(_, bucketName, targetKey) => Some(S3Resource(S3Bucket(bucketName), S3Key(targetKey)))
+      case s3UrlRegex3(bucketName, targetKey) => Some(S3Resource(S3Bucket(bucketName), S3Key(targetKey)))
       case _ => None
     }
 }

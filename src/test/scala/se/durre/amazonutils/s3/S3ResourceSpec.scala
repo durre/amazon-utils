@@ -33,5 +33,15 @@ class S3ResourceSpec extends Specification {
       val resource = S3Resource.fromUrl("http://bucket.s3.amazonaws.com/mykey")
       resource must beSome(S3Resource("bucket", "mykey"))
     }
+
+    "construct a resource from US Standard region url" in {
+      val resource = S3Resource.fromUrl("https://s3.amazonaws.com/bucket/mykey")
+      resource must beSome(S3Resource("bucket", "mykey"))
+    }
+
+    "construct a resource from EU region url" in {
+      val resource = S3Resource.fromUrl("https://s3.eu-central-1.amazonaws.com/bucket/mykey")
+      resource must beSome(S3Resource("bucket", "mykey"))
+    }
   }
 }
