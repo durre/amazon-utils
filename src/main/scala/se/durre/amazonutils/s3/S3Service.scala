@@ -1,8 +1,10 @@
 package se.durre.amazonutils.s3
 
-import scala.concurrent._
+import java.net.URL
 
-import java.nio.file.{StandardCopyOption, Path, Files}
+import scala.concurrent._
+import java.nio.file.{Files, Path, StandardCopyOption}
+import java.time.LocalDateTime
 
 class S3Service(storageClient: StorageClient)(implicit ec: ExecutionContext) {
 
@@ -23,6 +25,17 @@ class S3Service(storageClient: StorageClient)(implicit ec: ExecutionContext) {
       Files.copy(inputStream, localPath, StandardCopyOption.REPLACE_EXISTING)
       localPath
     }
+  }
+
+  /**
+    * Creates a temporary download url that can be used to access otherwise private resources
+    *
+    * @param s3Resource The resource to download
+    * @param expires    When the url expires
+    * @return           The url
+    */
+  def signUrl(s3Resource: S3Resource, expires: LocalDateTime): URL = {
+    storageClient.signUrl(s3Resource, expires)
   }
 
 }

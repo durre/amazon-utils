@@ -1,7 +1,8 @@
 package se.durre.amazonutils
 
+import com.amazonaws.regions.Regions
 import org.specs2.mutable.Specification
-import se.durre.amazonutils.s3.{S3Resource, S3Key}
+import se.durre.amazonutils.s3.{S3Key, S3Resource}
 
 class S3ResourceSpec extends Specification {
 
@@ -20,8 +21,12 @@ class S3ResourceSpec extends Specification {
 
   "S3Resource" should {
 
-    "get url for a s3 resource" in {
+    "get url for a s3 resource in the amazon default region" in {
       S3Resource("bucket", "mykey").url mustEqual "https://bucket.s3.amazonaws.com/mykey"
+    }
+
+    "get url for a s3 resource in another region" in {
+      S3Resource("bucket", "mykey", Regions.EU_WEST_1.getName).url mustEqual "https://bucket.s3-eu-west-1.amazonaws.com/mykey"
     }
 
     "construct a resource from a https url" in {
@@ -40,8 +45,8 @@ class S3ResourceSpec extends Specification {
     }
 
     "construct a resource from EU region url" in {
-      val resource = S3Resource.fromUrl("https://s3.eu-central-1.amazonaws.com/bucket/mykey")
-      resource must beSome(S3Resource("bucket", "mykey"))
+      val resource = S3Resource.fromUrl("https://s3-eu-central-1.amazonaws.com/bucket/mykey")
+      resource must beSome(S3Resource("bucket", "mykey", "eu-central-1"))
     }
   }
 }
