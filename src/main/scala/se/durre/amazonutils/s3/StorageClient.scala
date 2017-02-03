@@ -1,27 +1,24 @@
 package se.durre.amazonutils.s3
 
-import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.services.s3.AmazonS3Client
 import java.io.InputStream
 import java.net.URL
 import java.time.{LocalDateTime, ZoneId}
 import java.util.Date
 
-import com.amazonaws.services.s3.model.Region
+import com.amazonaws.auth.{AWSStaticCredentialsProvider, BasicAWSCredentials}
+import com.amazonaws.services.s3.{AmazonS3, AmazonS3ClientBuilder}
 
 
 class S3Client(accessKey: String, secretKey: String, region: String = AwsDefaults.defaultRegion) extends StorageClient {
 
-  private val client: AmazonS3Client = {
+  private val client: AmazonS3 = {
     val myCredentials = new BasicAWSCredentials(accessKey, secretKey)
-    val s3Client = new AmazonS3Client(myCredentials)
 
-    // Set aws region if not default one
-    if (region != AwsDefaults.defaultRegion) {
-      s3Client.setRegion(Region.fromValue(region).toAWSRegion)
-    }
-
-    s3Client
+    AmazonS3ClientBuilder
+      .standard()
+      .withCredentials(new AWSStaticCredentialsProvider(myCredentials))
+      .withRegion(region)
+      .build()
   }
 
   def download(bucket: String, key: String): InputStream = {
