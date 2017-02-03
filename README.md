@@ -6,6 +6,6 @@ Just a tiny scala wrapper for the aws java client
 
 ```scala
 libraryDependencies ++= Seq(
-  "com.github.durre" %% "amazon-utils" % "1.0.2"
+  "com.github.durre" %% "amazon-utils" % "1.1.0"
 )
 ```
