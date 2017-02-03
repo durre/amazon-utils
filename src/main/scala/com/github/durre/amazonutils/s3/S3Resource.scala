@@ -1,4 +1,4 @@
-package se.durre.amazonutils.s3
+package com.github.durre.amazonutils.s3
 
 case class S3Bucket(bucket: String) {
   val value: String = bucket
@@ -7,7 +7,7 @@ case class S3Bucket(bucket: String) {
 
 case class S3Key(key: String) {
 
-  assert(!key.startsWith("/"), "A S3 key must not start with a slash")
+  assert(!key.startsWith("/"), "An S3 key must not start with a slash")
 
   val value: String = key
 

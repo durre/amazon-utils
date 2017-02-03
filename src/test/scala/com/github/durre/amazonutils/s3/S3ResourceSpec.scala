@@ -1,8 +1,7 @@
-package se.durre.amazonutils
+package com.github.durre.amazonutils.s3
 
 import com.amazonaws.regions.Regions
 import org.specs2.mutable.Specification
-import se.durre.amazonutils.s3.{S3Key, S3Resource}
 
 class S3ResourceSpec extends Specification {
 

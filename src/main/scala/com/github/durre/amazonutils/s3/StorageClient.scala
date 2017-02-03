@@ -1,4 +1,4 @@
-package se.durre.amazonutils.s3
+package com.github.durre.amazonutils.s3
 
 import java.io.InputStream
 import java.net.URL

@@ -1,15 +1,14 @@
-package se.durre.amazonutils.s3
+package com.github.durre.amazonutils.s3
+
+import java.nio.charset.Charset
+import java.nio.file.{Files, Path}
 
 import org.specs2.mock.Mockito
 import org.specs2.mutable.Specification
 import org.specs2.time.NoTimeConversions
 
 import scala.concurrent.Await
-
 import scala.concurrent.duration._
-
-import java.nio.charset.Charset
-import java.nio.file.{Path, Files}
 
 class S3ServiceSpec extends Specification with Mockito with NoTimeConversions {
 
