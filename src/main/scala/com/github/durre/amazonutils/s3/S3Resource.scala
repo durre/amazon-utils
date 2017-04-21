@@ -32,8 +32,8 @@ case class S3Resource(bucket: S3Bucket, key: S3Key, region: String) {
     case _ => s"https://$bucket.s3-$region.amazonaws.com/$key"
   }
 
-  def signedUrl(expires: LocalDateTime)(implicit s3Service: S3Service) =
-    s3Service.signUrl(this, expires)
+  def signedUrl(expires: LocalDateTime)(implicit s3: S3) =
+    s3.signUrl(this, expires)
 
   def extension: Option[String] = key.extension
 

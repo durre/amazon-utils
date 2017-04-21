@@ -1,6 +1,6 @@
 name := """amazon-utils"""
 organization := "com.github.durre"
-version := "1.1.0"
+version := "1.2.0"
 
 scalaVersion := "2.11.8"
 
